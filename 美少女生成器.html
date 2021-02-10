@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ch">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doc</title>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="blue" :style="{fontSize : '30px'}">蓝色</button>
+      <button @click="red" :style="{fontSize : '30px'}">红色</button>
+      <button @click="yellow" :style="{fontSize : '30px'}">黄色</button>
+      <button @click="go" :style="{fontSize : '30px'}">解放双手</button>
+      <button @click="stop" :style="{fontSize : '30px'}">停！</button>
+      <button @click="random" :style="{fontSize : '30px'}">随机美少女</button>
+      <br />
+      <br />
+      <div><img :src="imgArr[index][index2]" alt="" /></div>
+    </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          imgArr: [
+            [
+              "./images/blue/01.jpg",
+              "./images/blue/02.jpg",
+              "./images/blue/03.jpg",
+              "./images/blue/04.jpg",
+              "./images/blue/05.jpg",
+            ],
+            [
+              "./images/red/01.jpg",
+              "./images/red/02.jpg",
+              "./images/red/03.jpg",
+              "./images/red/04.jpg",
+              "./images/red/05.jpg",
+            ],
+            [
+              "./images/yellow/01.jpg",
+              "./images/yellow/02.jpg",
+              "./images/yellow/03.jpg",
+              "./images/yellow/04.jpg",
+              "./images/yellow/05.jpg",
+            ],
+          ],
+          index: 0,
+          index2: 0,
+          intervalId: 0,
+          intervalId2: 0,
+          flag: false,
+        },
+        methods: {
+          blue: function () {
+            this.index = 0;
+            this.index2 = parseInt(Math.random() * 5);
+          },
+          red: function () {
+            this.index = 1;
+            this.index2 = parseInt(Math.random() * 5);
+          },
+          yellow: function () {
+            this.index = 2;
+            this.index2 = parseInt(Math.random() * 5);
+          },
+          go: function () {
+            this.intervalId = setInterval(() => {
+              this.index = parseInt(Math.random() * 3);
+              this.index2 = parseInt(Math.random() * 5);
+            }, 1000);
+          },
+          stop: function () {
+            clearInterval(this.intervalId);
+          },
+          random: function () {
+            if (this.flag == false) {
+              this.intervalId2 = setInterval(() => {
+                this.index = parseInt(Math.random() * 3);
+                this.index2 = parseInt(Math.random() * 5);
+              }, 20);
+              this.flag = true;
+            } else {
+              clearInterval(this.intervalId2);
+              this.flag = false;
+            }
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
